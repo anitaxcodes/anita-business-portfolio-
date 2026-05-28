@@ -642,6 +642,131 @@
         }
 
         /* ================================================
+           CONTACT FORM
+        ================================================ */
+        .contact-form-wrap {
+            background-color: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 44px 40px;
+            margin-bottom: 32px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            margin-bottom: 20px;
+        }
+
+        .form-group:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--navy);
+            font-style: normal;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            font-style: normal;
+            color: var(--navy);
+            background-color: var(--cream);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 12px 14px;
+            outline: none;
+            transition: border-color 0.2s;
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--periwinkle);
+            font-weight: 300;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--slate);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 130px;
+            line-height: 1.65;
+        }
+
+        .form-group select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234F5B8E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 36px;
+            cursor: pointer;
+        }
+
+        .form-group select option {
+            color: var(--navy);
+            background-color: var(--white);
+        }
+
+        .form-submit-row {
+            margin-top: 28px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .form-status {
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        .form-status.success {
+            color: #2e7d52;
+            display: block;
+        }
+
+        .form-status.error {
+            color: #b94040;
+            display: block;
+        }
+
+        .btn-primary[disabled] {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 640px) {
+            .contact-form-wrap {
+                padding: 28px 22px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ================================================
            FOOTER
         ================================================ */
         footer {
@@ -1124,6 +1249,43 @@
             <h2 class="section-title fade-in" data-delay="1">Let us work together</h2>
             <p class="contact-sub fade-in" data-delay="2">I am currently available for new projects. Whether you need a website from scratch, better Google visibility, or someone to manage your social media, I would love to help. Response within 24 hours.</p>
 
+            <!-- Contact Form -->
+            <div class="contact-form-wrap fade-in" data-delay="3">
+                <form id="contactForm" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cf-name">Your Name</label>
+                            <input type="text" id="cf-name" name="name" placeholder="Jane Smith" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cf-email">Email Address</label>
+                            <input type="email" id="cf-email" name="email" placeholder="jane@yourbusiness.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cf-service">What do you need?</label>
+                        <select id="cf-service" name="service" required>
+                            <option value="" disabled selected>Select a service</option>
+                            <option value="Website Design and Development">Website Design and Development</option>
+                            <option value="SEO and Local SEO">SEO and Local SEO</option>
+                            <option value="Google Business Profile Setup">Google Business Profile Setup</option>
+                            <option value="Social Media Management">Social Media Management</option>
+                            <option value="Meta Business Suite Setup">Meta Business Suite Setup</option>
+                            <option value="Content Writing">Content Writing</option>
+                            <option value="Not sure yet">Not sure yet</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cf-message">Tell me about your project</label>
+                        <textarea id="cf-message" name="message" placeholder="A short description of what you need, your timeline, and your budget range." required></textarea>
+                    </div>
+                    <div class="form-submit-row">
+                        <button type="submit" class="btn-primary" id="cfSubmitBtn">Send Message</button>
+                        <span class="form-status" id="cfStatus"></span>
+                    </div>
+                </form>
+            </div>
+
             <div class="contact-grid">
 
                 <a href="mailto:anikadangol@gmail.com" class="contact-card fade-in" data-delay="1">
@@ -1189,6 +1351,47 @@
 
         fadeEls.forEach(function (el) {
             observer.observe(el);
+        });
+
+        // Formspree contact form
+        var contactForm  = document.getElementById('contactForm');
+        var submitBtn    = document.getElementById('cfSubmitBtn');
+        var statusEl     = document.getElementById('cfStatus');
+
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            statusEl.className = 'form-status';
+            statusEl.textContent = '';
+
+            var data = new FormData(contactForm);
+
+            fetch('https://formspree.io/f/mbdbwdev', {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            })
+            .then(function (res) {
+                if (res.ok) {
+                    statusEl.textContent = 'Message sent. I will get back to you within 24 hours.';
+                    statusEl.className = 'form-status success';
+                    contactForm.reset();
+                } else {
+                    return res.json().then(function (json) {
+                        throw new Error(json.errors ? json.errors.map(function(e){ return e.message; }).join(', ') : 'Something went wrong.');
+                    });
+                }
+            })
+            .catch(function (err) {
+                statusEl.textContent = 'Could not send message. Please email me directly at anikadangol@gmail.com.';
+                statusEl.className = 'form-status error';
+            })
+            .finally(function () {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            });
         });
     </script>
 
