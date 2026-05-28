@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anita Dangol — Web Development, SEO &amp; Digital Marketing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ================================================
+           RESET & BASE
+        ================================================ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy:       #12153D;
+            --slate:      #4F5B8E;
+            --periwinkle: #7A8AB0;
+            --cream:      #F0EDE0;
+            --white:      #FFFFFF;
+            --border:     rgba(18, 21, 61, 0.11);
+            --shadow:     0 2px 16px rgba(18, 21, 61, 0.07);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-style: normal;
+            background-color: var(--cream);
+            color: var(--navy);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        em, i, address, cite {
+            font-style: normal;
+        }
+
+        /* ================================================
+           NAVIGATION
+        ================================================ */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            background-color: var(--cream);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+        }
+
+        .nav-inner {
+            max-width: 1160px;
+            margin: 0 auto;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--navy);
+            letter-spacing: 0.01em;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--navy);
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--slate);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--navy);
+            border-radius: 2px;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        /* ================================================
+           FADE-IN ANIMATION
+        ================================================ */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in[data-delay="1"] { transition-delay: 0.08s; }
+        .fade-in[data-delay="2"] { transition-delay: 0.16s; }
+        .fade-in[data-delay="3"] { transition-delay: 0.24s; }
+        .fade-in[data-delay="4"] { transition-delay: 0.32s; }
+        .fade-in[data-delay="5"] { transition-delay: 0.40s; }
+        .fade-in[data-delay="6"] { transition-delay: 0.48s; }
+
+        /* ================================================
+           SHARED SECTION STYLES
+        ================================================ */
+        .section {
+            padding: 96px 40px;
+        }
+
+        .section-inner {
+            max-width: 1160px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            color: var(--periwinkle);
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: clamp(1.6rem, 3vw, 2.1rem);
+            font-weight: 600;
+            color: var(--navy);
+            line-height: 1.25;
+            margin-bottom: 52px;
+        }
+
+        /* ================================================
+           BUTTONS
+        ================================================ */
+        .btn-primary {
+            display: inline-block;
+            padding: 14px 32px;
+            background-color: var(--navy);
+            color: var(--cream);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            font-style: normal;
+            border: 2px solid var(--navy);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--slate);
+            border-color: var(--slate);
+        }
+
+        .btn-outline {
+            display: inline-block;
+            padding: 14px 32px;
+            background-color: transparent;
+            color: var(--navy);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            font-style: normal;
+            border: 2px solid var(--navy);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--navy);
+            color: var(--cream);
+        }
+
+        .btn-full {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* ================================================
+           HERO
+        ================================================ */
+        #hero {
+            padding: 120px 40px 104px;
+            background-color: var(--cream);
+        }
+
+        .hero-inner {
+            max-width: 740px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--periwinkle);
+            margin-bottom: 20px;
+        }
+
+        .hero-headline {
+            font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+            font-weight: 600;
+            color: var(--navy);
+            line-height: 1.13;
+            margin-bottom: 28px;
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: var(--slate);
+            line-height: 1.8;
+            max-width: 580px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ================================================
+           SERVICES
+        ================================================ */
+        #services {
+            background-color: var(--cream);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .service-card {
+            background-color: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 36px 28px;
+            transition: box-shadow 0.22s;
+        }
+
+        .service-card:hover {
+            box-shadow: var(--shadow);
+        }
+
+        .service-icon {
+            width: 42px;
+            height: 42px;
+            color: var(--slate);
+            margin-bottom: 20px;
+        }
+
+        .service-title {
+            font-size: 0.975rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .service-desc {
+            font-size: 0.86rem;
+            font-weight: 400;
+            color: var(--slate);
+            line-height: 1.72;
+        }
+
+        /* ================================================
+           PORTFOLIO
+        ================================================ */
+        #work {
+            background-color: var(--cream);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
+
+        .portfolio-card {
+            background-color: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: box-shadow 0.22s;
+        }
+
+        .portfolio-card:hover {
+            box-shadow: var(--shadow);
+        }
+
+        .screenshot-placeholder {
+            width: 100%;
+            height: 196px;
+            background-color: #edeae0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--periwinkle);
+        }
+
+        .screenshot-placeholder svg {
+            width: 34px;
+            height: 34px;
+            opacity: 0.45;
+        }
+
+        .screenshot-placeholder span {
+            font-size: 0.725rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            opacity: 0.65;
+        }
+
+        .portfolio-body {
+            padding: 26px 28px 28px;
+        }
+
+        .portfolio-client {
+            font-size: 1.025rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 3px;
+        }
+
+        .portfolio-location {
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--periwinkle);
+            margin-bottom: 12px;
+        }
+
+        .portfolio-desc {
+            font-size: 0.86rem;
+            font-weight: 400;
+            color: var(--slate);
+            line-height: 1.72;
+            margin-bottom: 16px;
+        }
+
+        .portfolio-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border: 1px solid var(--navy);
+            border-radius: 20px;
+            font-size: 0.68rem;
+            font-weight: 500;
+            color: var(--navy);
+        }
+
+        /* ================================================
+           WHY HIRE ME
+        ================================================ */
+        #why {
+            background-color: var(--navy);
+        }
+
+        #why .section-title {
+            color: var(--cream);
+            max-width: 660px;
+        }
+
+        .why-body {
+            max-width: 740px;
+        }
+
+        .why-body p {
+            font-size: 1rem;
+            font-weight: 400;
+            color: rgba(240, 237, 224, 0.86);
+            line-height: 1.82;
+            margin-bottom: 26px;
+        }
+
+        .why-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ================================================
+           PROOF & RESULTS
+        ================================================ */
+        #proof {
+            background-color: var(--cream);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            margin-bottom: 36px;
+        }
+
+        .stat-card {
+            background-color: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 42px 28px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.7rem;
+            font-weight: 600;
+            color: var(--navy);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 0.86rem;
+            font-weight: 400;
+            color: var(--slate);
+            line-height: 1.55;
+        }
+
+        .proof-note {
+            font-size: 0.86rem;
+            font-weight: 400;
+            color: var(--periwinkle);
+            text-align: center;
+        }
+
+        /* ================================================
+           PRICING
+        ================================================ */
+        #pricing {
+            background-color: var(--cream);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            align-items: start;
+        }
+
+        .pricing-card {
+            background-color: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 40px 32px;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--slate);
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            background-color: var(--slate);
+            color: var(--cream);
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .pricing-tier {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--periwinkle);
+            margin-bottom: 10px;
+        }
+
+        .pricing-price {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--navy);
+            line-height: 1.1;
+            margin-bottom: 6px;
+        }
+
+        .price-range {
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: var(--slate);
+        }
+
+        .pricing-period {
+            font-size: 0.78rem;
+            font-weight: 400;
+            color: var(--periwinkle);
+            margin-bottom: 28px;
+        }
+
+        .pricing-divider {
+            width: 100%;
+            height: 1px;
+            background-color: var(--border);
+            margin-bottom: 28px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: var(--slate);
+            padding-left: 18px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .pricing-features li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 5px;
+            height: 5px;
+            background-color: var(--periwinkle);
+            border-radius: 50%;
+        }
+
+        /* ================================================
+           CONTACT
+        ================================================ */
+        #contact {
+            background-color: var(--cream);
+        }
+
+        .contact-sub {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--slate);
+            max-width: 560px;
+            line-height: 1.8;
+            margin-bottom: 48px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .contact-card {
+            background-color: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            transition: box-shadow 0.22s, border-color 0.22s;
+        }
+
+        .contact-card:hover {
+            box-shadow: var(--shadow);
+            border-color: var(--periwinkle);
+        }
+
+        .contact-label {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--periwinkle);
+        }
+
+        .contact-value {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--navy);
+        }
+
+        .contact-hint {
+            font-size: 0.77rem;
+            font-weight: 400;
+            color: var(--periwinkle);
+        }
+
+        .contact-note {
+            font-size: 0.83rem;
+            font-weight: 400;
+            color: var(--slate);
+            text-align: center;
+        }
+
+        /* ================================================
+           FOOTER
+        ================================================ */
+        footer {
+            background-color: var(--cream);
+            border-top: 1px solid var(--border);
+            padding: 28px 40px;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.82rem;
+            font-weight: 400;
+            color: var(--navy);
+        }
+
+        /* ================================================
+           RESPONSIVE — TABLET
+        ================================================ */
+        @media (max-width: 960px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 460px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 780px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ================================================
+           RESPONSIVE — MOBILE
+        ================================================ */
+        @media (max-width: 640px) {
+            .section {
+                padding: 72px 24px;
+            }
+
+            #hero {
+                padding: 80px 24px 72px;
+            }
+
+            .nav {
+                padding: 0 24px;
+            }
+
+            footer {
+                padding: 24px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 68px;
+                left: 0;
+                right: 0;
+                background-color: var(--cream);
+                border-bottom: 1px solid var(--border);
+                flex-direction: column;
+                padding: 20px 24px;
+                gap: 20px;
+                z-index: 199;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+         NAVIGATION
+    ============================================================ -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo">Anita Dangol</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+         HERO
+    ============================================================ -->
+    <section id="hero">
+        <div class="hero-inner">
+            <p class="hero-name fade-in">Anita Dangol</p>
+            <h1 class="hero-headline fade-in" data-delay="1">
+                Websites that rank.<br>Businesses that grow.
+            </h1>
+            <p class="hero-sub fade-in" data-delay="2">
+                I help small businesses worldwide get online, show up on Google, and turn visitors into real customers. Working with clients across the US, UK, Australia, and Europe.
+            </p>
+            <div class="hero-buttons fade-in" data-delay="3">
+                <a href="#contact" class="btn-primary">Hire Me</a>
+                <a href="#work" class="btn-outline">See My Work</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SERVICES — WHAT I DO
+    ============================================================ -->
+    <section class="section" id="services">
+        <div class="section-inner">
+            <p class="section-label fade-in">What I Do</p>
+            <h2 class="section-title fade-in" data-delay="1">Services built for small businesses</h2>
+
+            <div class="services-grid">
+
+                <!-- Card 1: Website Development -->
+                <div class="service-card fade-in" data-delay="1">
+                    <svg class="service-icon" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="3" y="9" width="36" height="26" rx="3" stroke="currentColor" stroke-width="2"/>
+                        <path d="M15 19L9 23L15 27" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M27 19L33 23L27 27" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M23 15L19 31" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <h3 class="service-title">Website Design and Development</h3>
+                    <p class="service-desc">Fast, clean websites built for small businesses. Mobile friendly, secure, and optimized from day one.</p>
+                </div>
+
+                <!-- Card 2: SEO and Local SEO -->
+                <div class="service-card fade-in" data-delay="2">
+                    <svg class="service-icon" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="18" cy="18" r="11" stroke="currentColor" stroke-width="2"/>
+                        <path d="M27 27L37 37" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M14 18H22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M18 14V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <h3 class="service-title">SEO and Local SEO</h3>
+                    <p class="service-desc">Your business needs to show up when people search. I handle keyword research, on page SEO, and local search optimization so you get found.</p>
+                </div>
+
+                <!-- Card 3: Google Business Profile -->
+                <div class="service-card fade-in" data-delay="3">
+                    <svg class="service-icon" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 5C15.477 5 11 9.477 11 15C11 20.523 21 38 21 38C21 38 31 20.523 31 15C31 9.477 26.523 5 21 5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        <circle cx="21" cy="15" r="4" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <h3 class="service-title">Google Business Profile Setup</h3>
+                    <p class="service-desc">Most small businesses lose customers simply because they are not visible on Google Maps. I set up and optimize your profile completely.</p>
+                </div>
+
+                <!-- Card 4: Social Media Management -->
+                <div class="service-card fade-in" data-delay="4">
+                    <svg class="service-icon" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="33" cy="9"  r="4.5" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="33" cy="33" r="4.5" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="9"  cy="21" r="4.5" stroke="currentColor" stroke-width="2"/>
+                        <path d="M13.4 23.3L28.6 30.7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M13.4 18.7L28.6 11.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <h3 class="service-title">Social Media Management</h3>
+                    <p class="service-desc">Consistent content, real engagement, and a brand presence that actually looks professional across Instagram and Facebook.</p>
+                </div>
+
+                <!-- Card 5: Meta Business Suite -->
+                <div class="service-card fade-in" data-delay="5">
+                    <svg class="service-icon" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="5"  y="5"  width="14" height="14" rx="2.5" stroke="currentColor" stroke-width="2"/>
+                        <rect x="23" y="5"  width="14" height="14" rx="2.5" stroke="currentColor" stroke-width="2"/>
+                        <rect x="5"  y="23" width="14" height="14" rx="2.5" stroke="currentColor" stroke-width="2"/>
+                        <rect x="23" y="23" width="14" height="14" rx="2.5" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <h3 class="service-title">Meta Business Suite Setup</h3>
+                    <p class="service-desc">Full Facebook and Instagram business setup so you can run ads, track performance, and manage everything from one place.</p>
+                </div>
+
+                <!-- Card 6: Content Writing -->
+                <div class="service-card fade-in" data-delay="6">
+                    <svg class="service-icon" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="5" y="7" width="32" height="28" rx="3" stroke="currentColor" stroke-width="2"/>
+                        <path d="M13 16H29" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M13 21H29" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M13 26H22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <h3 class="service-title">Content Writing</h3>
+                    <p class="service-desc">Website copy and social captions written for real people, not just search engines. Clear, direct, and built to convert.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         MY WORK — PORTFOLIO
+    ============================================================ -->
+    <section class="section" id="work">
+        <div class="section-inner">
+            <p class="section-label fade-in">My Work</p>
+            <h2 class="section-title fade-in" data-delay="1">Real clients. Real projects.</h2>
+
+            <div class="portfolio-grid">
+
+                <!-- Project 1: GoNepal Explore -->
+                <div class="portfolio-card fade-in" data-delay="1">
+                    <!-- REPLACE WITH SCREENSHOT -->
+                    <div class="screenshot-placeholder">
+                        <svg viewBox="0 0 36 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="34" height="26" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                            <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M1 19L9 13L14 17L22 10L35 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Screenshot coming soon</span>
+                    </div>
+                    <div class="portfolio-body">
+                        <p class="portfolio-client">GoNepal Explore</p>
+                        <p class="portfolio-location">🇳🇵 Nepal</p>
+                        <p class="portfolio-desc">This travel company had no consistent digital presence. Built their full website, handled ongoing SEO, and managed their social media channels.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Website Build</span>
+                            <span class="tag">SEO</span>
+                            <span class="tag">Social Media</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Yana Kitchen -->
+                <div class="portfolio-card fade-in" data-delay="2">
+                    <!-- REPLACE WITH SCREENSHOT -->
+                    <div class="screenshot-placeholder">
+                        <svg viewBox="0 0 36 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="34" height="26" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                            <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M1 19L9 13L14 17L22 10L35 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Screenshot coming soon</span>
+                    </div>
+                    <div class="portfolio-body">
+                        <p class="portfolio-client">Yana Kitchen</p>
+                        <p class="portfolio-location">🇳🇵 Nepal</p>
+                        <p class="portfolio-desc">This restaurant needed to be found online by local customers. Built their website and set up local SEO so they show up in relevant searches.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Website Build</span>
+                            <span class="tag">Local SEO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Nordes OY -->
+                <div class="portfolio-card fade-in" data-delay="3">
+                    <!-- REPLACE WITH SCREENSHOT -->
+                    <div class="screenshot-placeholder">
+                        <svg viewBox="0 0 36 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="34" height="26" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                            <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M1 19L9 13L14 17L22 10L35 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Screenshot coming soon</span>
+                    </div>
+                    <div class="portfolio-body">
+                        <p class="portfolio-client">Nordes OY</p>
+                        <p class="portfolio-location">🇫🇮 Finland</p>
+                        <p class="portfolio-desc">This shipment and engineering firm needed better local visibility in the Finnish market. Handled their complete local SEO setup and Google presence.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Local SEO</span>
+                            <span class="tag">Google Visibility</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Nepsay Mart -->
+                <div class="portfolio-card fade-in" data-delay="4">
+                    <!-- REPLACE WITH SCREENSHOT -->
+                    <div class="screenshot-placeholder">
+                        <svg viewBox="0 0 36 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="34" height="26" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                            <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M1 19L9 13L14 17L22 10L35 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Screenshot coming soon</span>
+                    </div>
+                    <div class="portfolio-body">
+                        <p class="portfolio-client">Nepsay Mart</p>
+                        <p class="portfolio-location">🇦🇺 Australia</p>
+                        <p class="portfolio-desc">This ecommerce business needed consistent social content and audience growth. Managed their full social media for 10 months including content strategy and performance reporting.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Social Media Management</span>
+                            <span class="tag">Content Strategy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: The Riders Vault -->
+                <div class="portfolio-card fade-in" data-delay="5">
+                    <!-- REPLACE WITH SCREENSHOT -->
+                    <div class="screenshot-placeholder">
+                        <svg viewBox="0 0 36 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="34" height="26" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                            <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M1 19L9 13L14 17L22 10L35 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Screenshot coming soon</span>
+                    </div>
+                    <div class="portfolio-body">
+                        <p class="portfolio-client">The Riders Vault</p>
+                        <p class="portfolio-location">🇳🇵 Nepal</p>
+                        <p class="portfolio-desc">Set up their complete Meta Business Suite so they could manage ads and brand presence across Facebook and Instagram professionally.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Meta Business Setup</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6: Gudperks -->
+                <div class="portfolio-card fade-in" data-delay="6">
+                    <!-- REPLACE WITH SCREENSHOT -->
+                    <div class="screenshot-placeholder">
+                        <svg viewBox="0 0 36 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="34" height="26" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                            <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M1 19L9 13L14 17L22 10L35 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Screenshot coming soon</span>
+                    </div>
+                    <div class="portfolio-body">
+                        <p class="portfolio-client">Gudperks</p>
+                        <p class="portfolio-location">🇳🇵 Nepal</p>
+                        <p class="portfolio-desc">Set up Google Business Profile and managed social media accounts to build their local online presence from scratch.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Social Media</span>
+                            <span class="tag">Google Business Setup</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         WHY HIRE ME
+    ============================================================ -->
+    <section class="section" id="why">
+        <div class="section-inner">
+            <h2 class="section-title fade-in">Why clients choose me over expensive agencies</h2>
+            <div class="why-body">
+                <p class="fade-in" data-delay="1">Big agencies charge $3,000 to $10,000 for the same website I deliver for under $200. The reason is simple. You are not paying for a team of 20 people, a fancy office in London, or a project manager who forwards emails. You are paying directly for the work.</p>
+                <p class="fade-in" data-delay="2">The cost of living where I operate is a fraction of what it is in the US or UK. That gap means I can charge less while still delivering work that meets international standards. My clients are foreign businesses so my entire workflow, communication, and output is built around what they expect.</p>
+                <p class="fade-in" data-delay="3">You get faster turnaround, direct communication, zero middlemen, and pricing that actually makes sense for a small business budget. That is not a compromise. That is just good value.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         PROOF & RESULTS
+    ============================================================ -->
+    <section class="section" id="proof">
+        <div class="section-inner">
+            <p class="section-label fade-in">Proof</p>
+            <h2 class="section-title fade-in" data-delay="1">Numbers that mean something</h2>
+
+            <div class="stats-grid">
+                <div class="stat-card fade-in" data-delay="1">
+                    <p class="stat-number">6+</p>
+                    <p class="stat-label">Clients Served<br>across Nepal, Australia, and Finland</p>
+                </div>
+                <div class="stat-card fade-in" data-delay="2">
+                    <p class="stat-number">10</p>
+                    <p class="stat-label">Months managing social media<br>for an Australian ecommerce brand</p>
+                </div>
+                <div class="stat-card fade-in" data-delay="3">
+                    <p class="stat-number">3</p>
+                    <p class="stat-label">Countries served including<br>Nepal, Australia, and Finland</p>
+                </div>
+            </div>
+
+            <p class="proof-note fade-in" data-delay="4">Every project listed here is real work delivered for real businesses. No mock projects. No fake case studies.</p>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         PRICING
+    ============================================================ -->
+    <section class="section" id="pricing">
+        <div class="section-inner">
+            <p class="section-label fade-in">Pricing</p>
+            <h2 class="section-title fade-in" data-delay="1">Simple pricing. No surprises.</h2>
+
+            <div class="pricing-grid">
+
+                <!-- Starter -->
+                <div class="pricing-card fade-in" data-delay="1">
+                    <p class="pricing-tier">Starter</p>
+                    <p class="pricing-price">$120 <span class="price-range">to $180</span></p>
+                    <p class="pricing-period">One time payment</p>
+                    <div class="pricing-divider"></div>
+                    <ul class="pricing-features">
+                        <li>Website build only</li>
+                        <li>Up to 5 pages</li>
+                        <li>Mobile responsive</li>
+                        <li>Cloudflare setup</li>
+                        <li>SSL certificate</li>
+                        <li>Contact form</li>
+                        <li>Delivered in 5 to 7 days</li>
+                    </ul>
+                    <a href="#contact" class="btn-outline btn-full">Get Started</a>
+                </div>
+
+                <!-- Growth — Most Popular -->
+                <div class="pricing-card featured fade-in" data-delay="2">
+                    <span class="pricing-badge">Most Popular</span>
+                    <p class="pricing-tier">Growth</p>
+                    <p class="pricing-price">$200 <span class="price-range">to $320</span></p>
+                    <p class="pricing-period">One time payment</p>
+                    <div class="pricing-divider"></div>
+                    <ul class="pricing-features">
+                        <li>Everything in Starter</li>
+                        <li>Full SEO setup included</li>
+                        <li>On page SEO</li>
+                        <li>Google Business Profile setup</li>
+                        <li>Meta titles and descriptions</li>
+                        <li>Basic analytics</li>
+                        <li>Delivered in 7 to 10 days</li>
+                    </ul>
+                    <a href="#contact" class="btn-primary btn-full">Get Started</a>
+                </div>
+
+                <!-- Monthly Retainer -->
+                <div class="pricing-card fade-in" data-delay="3">
+                    <p class="pricing-tier">Monthly Retainer</p>
+                    <p class="pricing-price">$80 <span class="price-range">to $150</span></p>
+                    <p class="pricing-period">Per month · Minimum 2 months</p>
+                    <div class="pricing-divider"></div>
+                    <ul class="pricing-features">
+                        <li>Social media management or ongoing SEO</li>
+                        <li>12 to 16 posts per month</li>
+                        <li>Monthly SEO tracking</li>
+                        <li>Regular updates</li>
+                        <li>Performance reporting</li>
+                    </ul>
+                    <a href="#contact" class="btn-outline btn-full">Get Started</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         CONTACT
+    ============================================================ -->
+    <section class="section" id="contact">
+        <div class="section-inner">
+            <p class="section-label fade-in">Get In Touch</p>
+            <h2 class="section-title fade-in" data-delay="1">Let us work together</h2>
+            <p class="contact-sub fade-in" data-delay="2">I am currently available for new projects. Whether you need a website from scratch, better Google visibility, or someone to manage your social media, I would love to help. Response within 24 hours.</p>
+
+            <div class="contact-grid">
+
+                <a href="mailto:anikadangol@gmail.com" class="contact-card fade-in" data-delay="1">
+                    <span class="contact-label">Email</span>
+                    <span class="contact-value">anikadangol@gmail.com</span>
+                    <span class="contact-hint">Click to send an email</span>
+                </a>
+
+                <a href="https://wa.me/9779808507929" target="_blank" rel="noopener noreferrer" class="contact-card fade-in" data-delay="2">
+                    <span class="contact-label">WhatsApp</span>
+                    <span class="contact-value">Click to chat on WhatsApp</span>
+                    <span class="contact-hint">Opens WhatsApp directly</span>
+                </a>
+
+                <div class="contact-card fade-in" data-delay="3">
+                    <span class="contact-label">Phone</span>
+                    <span class="contact-value">+977 9808507929</span>
+                    <span class="contact-hint">Available via call or WhatsApp</span>
+                </div>
+
+            </div>
+
+            <p class="contact-note fade-in" data-delay="4">Available worldwide. All major payment methods accepted including PayPal, Wise, and bank transfer.</p>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FOOTER
+    ============================================================ -->
+    <footer>
+        <p>Copyright 2025 Anita Dangol. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile nav toggle
+        var navToggle = document.getElementById('navToggle');
+        var navLinks  = document.getElementById('navLinks');
+
+        navToggle.addEventListener('click', function () {
+            navLinks.classList.toggle('open');
+        });
+
+        navLinks.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // Fade-in on scroll via Intersection Observer
+        var fadeEls = document.querySelectorAll('.fade-in');
+
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -36px 0px'
+        });
+
+        fadeEls.forEach(function (el) {
+            observer.observe(el);
+        });
+    </script>
+
+</body>
+</html>
