@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Document body -->
+  <path d="M8 6 L64 6 L80 22 L80 94 L8 94 Z" fill="#F0EDE0" stroke="#12153D" stroke-width="5" stroke-linejoin="round"/>
+  <!-- Folded corner -->
+  <path d="M64 6 L64 22 L80 22" fill="#D8D4C6" stroke="#12153D" stroke-width="5" stroke-linejoin="round"/>
+  <!-- Top short line -->
+  <line x1="20" y1="36" x2="50" y2="36" stroke="#12153D" stroke-width="4" stroke-linecap="round"/>
+  <!-- Person circle — navy fill -->
+  <circle cx="42" cy="60" r="20" fill="#12153D"/>
+  <!-- Person head -->
+  <circle cx="42" cy="53" r="6.5" fill="#F0EDE0"/>
+  <!-- Person shoulders -->
+  <path d="M29 74 Q29 66 42 66 Q55 66 55 74" fill="#F0EDE0"/>
+  <!-- Bottom lines -->
+  <line x1="20" y1="84" x2="68" y2="84" stroke="#12153D" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Pencil group — slate blue, angled -->
+  <!-- Pencil body -->
+  <rect x="76" y="34" width="13" height="44" rx="2" fill="#4F5B8E" transform="rotate(12 82 56)"/>
+  <!-- Pencil tip -->
+  <polygon points="76,78 89,78 82.5,92" fill="#12153D" transform="rotate(12 82 56)"/>
+  <!-- Pencil eraser band -->
+  <rect x="76" y="30" width="13" height="7" rx="1.5" fill="#7A8AB0" transform="rotate(12 82 56)"/>
+  <!-- Pencil top cap -->
+  <rect x="76" y="24" width="13" height="8" rx="2" fill="#F0EDE0" stroke="#12153D" stroke-width="2" transform="rotate(12 82 56)"/>
+</svg>
